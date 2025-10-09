@@ -1,0 +1,8 @@
+# nvim / shell state
+.config/nvim/.nvimlog
+.zcompdump
+.zsh_history
+.zhistory
+# tmux plugin state
+.tmux/resurrect/
+.tmux/continuum/
