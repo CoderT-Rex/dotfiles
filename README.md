@@ -1,6 +1,6 @@
 To really use this well, you need a good terminal emulator like wezterm (otherwise colors and fonts will be like bleh)
 
-Install git, neovim, eza, zoxide, tmux, stow via the package manager.
+Install git, neovim, eza, zoxide, tmux, stow, fzf, ripgrep via the package manager.
 
 Install Oh My Zsh:
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
