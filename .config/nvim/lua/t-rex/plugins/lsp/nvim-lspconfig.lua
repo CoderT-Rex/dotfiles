@@ -7,6 +7,8 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
+    -- Silence deprecation warning for Neovim 0.10
+    vim.deprecate = function() end
     -- import mason_lspconfig plugin
     local mason_lspconfig = require("mason-lspconfig")
 
@@ -134,11 +136,11 @@ return {
       if server_configs[server_name] then
         return true
       end
-      if vim.lsp.config[server_name] then
+      local lspconfig = require("lspconfig")
+      if lspconfig[server_name] then
         return true
       end
-      local runtime_paths = vim.api.nvim_get_runtime_file(("lsp/%s.lua"):format(server_name), false)
-      return #runtime_paths > 0
+      return false
     end
 
     local function setup_server(server_name)
@@ -149,10 +151,10 @@ return {
         return
       end
 
+      local lspconfig = require("lspconfig")
       local build_config = server_configs[server_name]
       local opts = build_config and build_config() or with_capabilities()
-      vim.lsp.config(server_name, opts)
-      vim.lsp.enable(server_name)
+      lspconfig[server_name].setup(opts)
       configured_servers[server_name] = true
     end
 
