@@ -14,6 +14,7 @@ return {
 
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local lspconfig = require("lspconfig")
 
     local keymap = vim.keymap -- for conciseness
 
@@ -132,15 +133,20 @@ return {
       stylua = true,
     }
 
+    local has_new_lsp_config_api = vim.lsp and type(vim.lsp.config) == "function" and vim.lsp.enable
+
     local function is_known_server(server_name)
       if server_configs[server_name] then
         return true
       end
-      local lspconfig = require("lspconfig")
+      if has_new_lsp_config_api then
+        return true
+      end
       if lspconfig[server_name] then
         return true
       end
-      return false
+      local runtime_paths = vim.api.nvim_get_runtime_file(("lsp/%s.lua"):format(server_name), false)
+      return #runtime_paths > 0
     end
 
     local function setup_server(server_name)
@@ -151,10 +157,14 @@ return {
         return
       end
 
-      local lspconfig = require("lspconfig")
       local build_config = server_configs[server_name]
       local opts = build_config and build_config() or with_capabilities()
-      lspconfig[server_name].setup(opts)
+      if has_new_lsp_config_api then
+        vim.lsp.config(server_name, opts)
+        vim.lsp.enable(server_name)
+      elseif lspconfig[server_name] then
+        lspconfig[server_name].setup(opts)
+      end
       configured_servers[server_name] = true
     end
 

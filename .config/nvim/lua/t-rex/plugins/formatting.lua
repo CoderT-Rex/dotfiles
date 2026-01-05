@@ -1,6 +1,18 @@
+local supports_conform = vim.fn.has("nvim-0.10") == 1
+
 return {
 	"stevearc/conform.nvim",
+	enabled = supports_conform,
 	event = { "BufReadPre", "BufNewFile" },
+	init = function()
+		if not supports_conform then
+			vim.notify(
+				"conform.nvim requires Neovim 0.10+. Plugin disabled.",
+				vim.log.levels.WARN,
+				{ title = "nvim config" }
+			)
+		end
+	end,
 	config = function()
 		local conform = require("conform")
 

@@ -6,3 +6,8 @@
 # tmux plugin state
 .tmux/resurrect/
 .tmux/continuum/
+
+# host-specific state
+.config/google-chrome/
+.config/neofetch/
+.config/thefuck/
