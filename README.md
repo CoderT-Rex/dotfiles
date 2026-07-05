@@ -1,5 +1,7 @@
 To really use this well, you need a good terminal emulator like wezterm (otherwise colors and fonts will be like bleh)
 
+On Debian/Ubuntu, `setup.sh` automates everything below. On macOS, `setup-mac.sh` does the same via Homebrew (installs Homebrew if missing, brew-installs the CLI tools, sets up Oh My Zsh/p10k/plugins, tpm, MesloLGS NF fonts in ~/Library/Fonts, and stows the dotfiles). Both scripts are safe to re-run.
+
 Install git, neovim, eza, zoxide, tmux, stow, fzf, fd (Debian/Ubuntu package name: fd-find), bat/batcat, git-delta, tldr (or tlrc), and ripgrep via the package manager.
 Install pipx so you can install thefuck cleanly:
 sudo apt install pipx

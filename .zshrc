@@ -5,6 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# macOS Homebrew
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -45,6 +50,12 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 export PATH
+
+# thefuck
+if command -v thefuck >/dev/null 2>&1; then
+  eval "$(thefuck --alias)"
+  eval "$(thefuck --alias fk)"
+fi
 
 
 
